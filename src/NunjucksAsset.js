@@ -14,8 +14,10 @@ class NunjucksAsset extends HTMLAsset {
     this.nunjucksDir = path.dirname(name);
 
     // load nunjucksrc file
-    const explorer   = config('nunjucks');
-    explorer.load('./src/data.json')
+    const explorer   = config('nunjucks', {
+      searchPlaces: ['context.json', 'global.json']
+    });
+    explorer.search('./src/html/')
     .then(function(result){
        if(result.config && !result.isEmpty){
           Object.assign(njkContext, result.config);
