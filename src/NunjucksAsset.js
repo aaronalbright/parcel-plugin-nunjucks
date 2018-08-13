@@ -14,16 +14,15 @@ class NunjucksAsset extends HTMLAsset {
     this.nunjucksDir = path.dirname(name);
 
     // load nunjucksrc file
-    var pwd          = path.resolve('.') || process.cwd();
-    const explorer   = config('nunjucks')
-    explorer.search(pwd)
+    const explorer   = config('nunjucks');
+    explorer.load('./src/data.json')
     .then(function(result){
        if(result.config && !result.isEmpty){
           Object.assign(njkContext, result.config);
        }
     })  
     .catch((error) => {
-      console.log('parce nunjucksrc file error', error)
+      console.log('nunjucksrc error', error)
     });
 
   }
